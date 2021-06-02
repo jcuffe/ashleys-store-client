@@ -1,5 +1,12 @@
 @import 'src/assets/styles/common';
 
+.container {
+}
+
+.bodyWrapper {
+  @include scrollbarMargin;
+}
+
 .body {
   max-width: $maxWidth;
   margin: 0 auto;

@@ -1,8 +1,9 @@
 @import 'src/assets/styles/common';
 
 .container {
+  @include scrollbarMargin;
   position: fixed;
-  width: 100%;
+  width: calc(100% - (100vw - 100%));
   z-index: 1;
   background: white;
   border-bottom: 1px solid $primary;

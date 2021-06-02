@@ -11,7 +11,7 @@ const Cart: React.FC = () => {
   return (
     <div className={style.container}>
       {Object.values(state.context.items).map((item) => (
-        <CartListItem item={item} />
+        <CartListItem item={item} key={item.product.id} />
       ))}
     </div>
   )

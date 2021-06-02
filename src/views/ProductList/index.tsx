@@ -4,16 +4,16 @@ import React from 'react'
 import { useProductService } from 'src/machines/product'
 import ProductListItem from './ProductListItem'
 
-const Products: React.FC = () => {
+const ProductList: React.FC = () => {
   const [productState] = useProductService()
 
   return (
     <div className={style.container}>
       {productState.context.products.map((product) => (
-        <ProductListItem product={product} />
+        <ProductListItem product={product} key={product.id} />
       ))}
     </div>
   )
 }
 
-export default Products
+export default ProductList

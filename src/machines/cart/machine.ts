@@ -8,9 +8,15 @@ const initialContext: CartContext = {
 
 const cartMachine = createMachine<CartContext, CartEvent>(
   {
-    initial: 'idle',
+    initial: 'starting',
     context: initialContext,
     states: {
+      starting: {
+        always: {
+          actions: 'restoreContext',
+          target: 'idle',
+        },
+      },
       idle: {
         on: {
           addItem: {
@@ -25,6 +31,7 @@ const cartMachine = createMachine<CartContext, CartEvent>(
                 },
               }),
               'logContext',
+              'persistContext',
             ],
           },
           removeItem: {
@@ -34,6 +41,7 @@ const cartMachine = createMachine<CartContext, CartEvent>(
                   _.pickBy(ctx.items, (item) => item.product.id !== event.id),
               }),
               'logContext',
+              'persistContext',
             ],
           },
           setQuantity: {
@@ -43,6 +51,7 @@ const cartMachine = createMachine<CartContext, CartEvent>(
                   _.set(ctx.items, [event.id, 'quantity'], event.quantity),
               }),
               'logContext',
+              'persistContext',
             ],
           },
         },
@@ -52,6 +61,20 @@ const cartMachine = createMachine<CartContext, CartEvent>(
   {
     actions: {
       logContext: (ctx) => console.log('Cart Context', ctx),
+      persistContext: (ctx) => {
+        console.log('persisting...')
+        localStorage.setItem('cart', JSON.stringify(ctx))
+      },
+      restoreContext: assign((ctx, event) => {
+        console.log('restoring...')
+        try {
+          const serializedContext = localStorage.getItem('cart') as string
+          const context = JSON.parse(serializedContext) as CartContext
+          return context
+        } catch {
+          return {}
+        }
+      }),
     },
   },
 )
