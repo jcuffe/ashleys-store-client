@@ -1,0 +1,68 @@
+@import 'src/assets/styles/common';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border-bottom: 1px solid $tertiary;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &:nth-child(3n + 1) img {
+    background-color: $secondary;
+  }
+
+  &:nth-child(3n + 2) img {
+    background-color: $tertiary;
+  }
+}
+
+.body {
+  display: flex;
+  margin-bottom: 24px;
+}
+
+.image {
+  background-color: $primary;
+  flex-shrink: 0;
+  height: 60px;
+  width: 60px;
+}
+
+.details {
+  margin-left: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.name {
+  @include productName;
+}
+
+.description {
+  @include productDescription;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.cartLink {
+  @include actionButton;
+  @include linkButton;
+}
+
+.addToCart {
+  @include actionButton;
+}
+
+.icon {
+  margin-left: 12px;
+  height: 24px;
+  width: 24px;
+}

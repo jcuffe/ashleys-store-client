@@ -1,0 +1,13 @@
+@import 'src/assets/styles/common';
+
+.Checkout__Container {
+  @include media($small) {
+  }
+}
+
+.ShippingAddress__Form {
+  padding: 0 6px;
+  .Form__Row {
+    margin-bottom: 12px;
+  }
+}

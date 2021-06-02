@@ -1,0 +1,28 @@
+@mixin pressedButton {
+  transition: transform 0.1s ease;
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+@mixin linkButton {
+  text-decoration: none;
+}
+
+@mixin actionButton {
+  padding: 12px 24px;
+  font-weight: 600;
+  background-color: white;
+  color: $secondary;
+  border: 1px solid $secondary;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: $secondary;
+    color: white;
+  }
+}

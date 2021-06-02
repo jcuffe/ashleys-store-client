@@ -1,0 +1,19 @@
+$mini: 320px;
+$mobile: 480px;
+$small: 580px;
+$medium: 767px;
+$large: 992px;
+$default: 1439px;
+$mega: 1600px;
+
+@mixin media($size) {
+  @media (max-width: $size) {
+    @content;
+  }
+}
+
+@mixin media-greater-than($size) {
+  @media (min-width: $size) {
+    @content;
+  }
+}

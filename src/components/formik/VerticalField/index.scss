@@ -1,0 +1,18 @@
+.Form__VerticalField {
+  display: flex;
+  flex-direction: column;
+
+  .VerticalField__Details {
+    margin-bottom: 6px;
+    margin-right: 6px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .VerticalField__Label {
+  }
+
+  .VerticalField__Error {
+    color: red;
+  }
+}

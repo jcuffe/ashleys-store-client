@@ -1,0 +1,42 @@
+@import 'src/assets/styles/common';
+
+.container {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  background: white;
+  border-bottom: 1px solid $primary;
+}
+
+.navigation {
+  max-width: $maxWidth;
+  padding: 18px 0;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 auto;
+}
+
+.navLink {
+  margin-right: 32px;
+  &:last-child {
+    margin-right: 24px;
+    @include media-greater-than($medium) {
+      margin-right: 0;
+    }
+  }
+}
+
+.storeLink {
+  margin-right: auto;
+  margin-left: 24px;
+  @include media-greater-than($medium) {
+    margin-left: 0;
+  }
+}
+
+.checkout,
+.store {
+  @include pressedButton;
+  height: 36px;
+  color: $primary;
+}
