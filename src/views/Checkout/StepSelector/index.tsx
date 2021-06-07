@@ -6,7 +6,7 @@ import { useCheckoutService } from 'src/machines/checkout'
 import { steps } from '../constants'
 
 const StepSelector: React.FC = () => {
-  const [checkoutState, send] = useCheckoutService()
+  const [checkoutState] = useCheckoutService()
 
   const states: (keyof typeof steps)[][] = [
     ['shipping'],

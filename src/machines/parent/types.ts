@@ -1,6 +1,6 @@
 import type { ApolloClient, NormalizedCacheObject } from '@apollo/client'
 import { Interpreter, ActorRefFrom } from 'xstate'
-import { CartContext, CartEvent, CartLookup } from '../cart'
+import { CartContext, CartEvent } from '../cart'
 import { ProductContext, ProductEvent } from '../product'
 import {
   BroadcastCartEvent,

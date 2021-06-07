@@ -3,7 +3,6 @@ import style from 'src/components/Header/index.module.scss'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import CartIcon from './CartIcon'
-import { ReactComponent as CheckoutIcon } from 'src/assets/images/checkout.svg'
 import { ReactComponent as StoreIcon } from 'src/assets/images/store.svg'
 
 import routes from 'src/views/App/routes'

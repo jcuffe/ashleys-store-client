@@ -1,4 +1,4 @@
-import { createMachine, spawn, assign, send, forwardTo } from 'xstate'
+import { createMachine, spawn, assign, forwardTo } from 'xstate'
 import { buildCartContext, cartMachine } from '../cart'
 import { buildCheckoutContext, checkoutMachine } from '../checkout'
 import { buildProductContext, productMachine } from '../product'
