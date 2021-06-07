@@ -1,0 +1,16 @@
+@import 'src/assets/styles/common';
+
+.container {
+}
+
+.cardElement {
+  padding: 12px;
+  outline: 1px solid $primary;
+  background-color: white;
+}
+
+.confirm {
+  @include actionButton;
+  display: block;
+  margin-left: auto;
+}

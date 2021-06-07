@@ -1,14 +1,11 @@
 @import 'src/assets/styles/common';
 
 .container {
-  border: 1px solid $secondary;
-  border-radius: 6px;
+  @include actionButton;
 }
 
 .icon {
   display: block;
-  padding: 12px;
   height: 24px;
   width: 24px;
-  color: $tertiary;
 }

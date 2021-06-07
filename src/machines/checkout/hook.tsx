@@ -1,16 +1,7 @@
-import React, { createContext, useContext } from 'react'
-import { useMachine, useService } from '@xstate/react'
-import checkoutMachine from 'src/machines/checkout/machine'
-import { CheckoutContext, CheckoutEvent } from 'src/machines/checkout/types'
-
-const Context = createContext(null as any)
-
-export const CheckoutProvider: React.FC = ({ children }) => {
-  const [, , service] = useMachine(checkoutMachine)
-  return <Context.Provider value={service}>{children}</Context.Provider>
-}
+import { useActor } from '@xstate/react'
+import { useParentMachine, CheckoutActor } from '../parent'
 
 export const useCheckoutService = () => {
-  const checkoutService = useContext(Context)
-  return useService<CheckoutContext, CheckoutEvent>(checkoutService)
+  const [{ context }] = useParentMachine()
+  return useActor<CheckoutActor>(context.checkoutActor)
 }

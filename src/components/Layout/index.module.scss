@@ -1,14 +1,19 @@
 @import 'src/assets/styles/common';
 
 .container {
+  min-height: 100%;
 }
 
 .bodyWrapper {
   @include scrollbarMargin;
+  min-height: 100%;
 }
 
 .body {
+  min-height: 100%;
   max-width: $maxWidth;
+  outline: 1px solid $primary;
   margin: 0 auto;
-  padding-top: 76px;
+  padding-top: 46px;
+  background-color: $offwhite;
 }

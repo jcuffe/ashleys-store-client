@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500&display=swap');
+
 @mixin productName {
   font-size: 1rem;
   font-weight: 600;
@@ -6,4 +9,12 @@
 @mixin productDescription {
   font-size: 1rem;
   font-weight: 300;
+}
+
+@mixin copy {
+  font-family: 'Brittle';
+}
+
+@mixin uiText {
+  font-family: 'Prompt';
 }

@@ -1,0 +1,9 @@
+@import 'src/assets/styles/common';
+
+.container {
+  min-height: calc(100vh - 60px);
+  padding-bottom: 60px;
+
+  // Force fixed elements to live within this container
+  transform: translateX(0);
+}

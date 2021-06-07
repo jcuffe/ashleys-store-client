@@ -1,24 +1,18 @@
 import _ from 'lodash'
-import { assign, createMachine } from 'xstate'
-import { CartContext, CartEvent } from 'src/machines/cart/types'
+import { assign, createMachine, sendParent } from 'xstate'
+import { CartContext, CartEvent, CartLookup } from 'src/machines/cart/types'
 
-const initialContext: CartContext = {
-  items: {},
-}
-
-const cartMachine = createMachine<CartContext, CartEvent>(
+export const cartMachine = createMachine<CartContext, CartEvent>(
   {
-    initial: 'starting',
-    context: initialContext,
+    id: 'cart',
+    initial: 'idle',
     states: {
-      starting: {
-        always: {
-          actions: 'restoreContext',
-          target: 'idle',
-        },
-      },
       idle: {
+        entry: 'restoreContext',
         on: {
+          requestCart: {
+            actions: ['broadcastCart', 'logEvent'],
+          },
           addItem: {
             actions: [
               assign({
@@ -32,6 +26,7 @@ const cartMachine = createMachine<CartContext, CartEvent>(
               }),
               'logContext',
               'persistContext',
+              'broadcastCart',
             ],
           },
           removeItem: {
@@ -42,6 +37,7 @@ const cartMachine = createMachine<CartContext, CartEvent>(
               }),
               'logContext',
               'persistContext',
+              'broadcastCart',
             ],
           },
           setQuantity: {
@@ -52,6 +48,7 @@ const cartMachine = createMachine<CartContext, CartEvent>(
               }),
               'logContext',
               'persistContext',
+              'broadcastCart',
             ],
           },
         },
@@ -60,21 +57,34 @@ const cartMachine = createMachine<CartContext, CartEvent>(
   },
   {
     actions: {
-      logContext: (ctx) => console.log('Cart Context', ctx),
+      logContext: (ctx) => console.log('Cart Context', ctx.items),
+      logEvent: (_, e) => console.log('Cart Event', e),
       persistContext: (ctx) => {
         console.log('persisting...')
-        localStorage.setItem('cart', JSON.stringify(ctx))
+        localStorage.setItem('cartItems', JSON.stringify(ctx.items))
       },
-      restoreContext: assign((ctx, event) => {
+      restoreContext: assign<CartContext, CartEvent>(() => {
         console.log('restoring...')
         try {
-          const serializedContext = localStorage.getItem('cart') as string
-          const context = JSON.parse(serializedContext) as CartContext
-          return context
+          const serializedContext = localStorage.getItem('cartItems') as string
+
+          if (serializedContext === null) {
+            return {}
+          }
+
+          const items = JSON.parse(serializedContext) as CartLookup
+          return { items }
         } catch {
           return {}
         }
       }),
+      broadcastCart: sendParent<CartContext, CartEvent>((ctx) => ({
+        type: 'broadcastCart',
+        items: Object.values(ctx.items).map((item) => ({
+          productId: item.product.id,
+          quantity: item.quantity,
+        })),
+      })),
     },
   },
 )

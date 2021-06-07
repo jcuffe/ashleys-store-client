@@ -1,52 +1,80 @@
-import { assign, createMachine } from 'xstate'
-import { CheckoutContext, CheckoutEvent } from 'src/machines/checkout/types'
+import { createMachine } from 'xstate'
+import { CheckoutContext, CheckoutEvent } from './types'
+import * as services from './services'
+import * as actions from './actions'
 
-const initialContext = {
-  shippingAddress: {
-    address1: '',
-    address2: '',
-    city: '',
-    state: '',
-    zip: '',
-  },
-}
-
-const checkoutMachine = createMachine<CheckoutContext, CheckoutEvent>(
+export const checkoutMachine = createMachine<CheckoutContext, CheckoutEvent>(
   {
-    initial: 'itemSummary',
-    context: initialContext,
+    id: 'checkout',
+    type: 'parallel',
     states: {
-      itemSummary: {
-        on: {
-          next: 'shippingAddress',
-        },
-      },
-      shippingAddress: {
-        on: {
-          previous: 'itemSummary',
-          next: 'confirmation',
-          submitForm: {
-            actions: [
-              assign({
-                shippingAddress: (ctx, event) => event.values,
-              }),
-              'logContext',
-            ],
+      ui: {
+        initial: 'shipping',
+        states: {
+          shipping: {
+            on: {
+              submitForm: {
+                target: 'payment',
+                actions: ['storeAddress', 'logContext'],
+              },
+            },
+          },
+          payment: {
+            invoke: {
+              src: 'mountCardElement',
+            },
+            on: {
+              previous: 'shipping',
+              confirmPayment: 'confirmation',
+            },
+          },
+          confirmation: {
+            invoke: { src: 'confirmPayment', onDone: 'success' },
+          },
+          success: {
+            type: 'final',
+            // entry: 'clearCart'
           },
         },
       },
-      confirmation: {
+      stripe: {
+        initial: 'loading',
+        states: {
+          loading: {
+            invoke: {
+              src: 'initStripe',
+              onDone: {
+                actions: ['storeStripeData', 'logContext'],
+                target: 'ready',
+              },
+            },
+          },
+          ready: {},
+        },
+      },
+      data: {
+        initial: 'idle',
+        states: {
+          idle: { entry: 'requestCart' },
+          active: {
+            invoke: {
+              src: 'createOrUpdatePaymentIntent',
+              onDone: {
+                actions: ['storePaymentIntent', 'logContext'],
+              },
+              onError: { actions: 'logEvent' },
+            },
+          },
+          error: {},
+        },
         on: {
-          previous: 'shippingAddress',
+          broadcastCart: 'data.active',
+          submitForm: 'data.active',
         },
       },
     },
   },
-  {
-    actions: {
-      logContext: (ctx) => console.log('Checkout Context', ctx),
-    },
-  },
+  { services, actions },
 )
 
 export default checkoutMachine

@@ -20,9 +20,6 @@ const Header: React.FC<Props> = () => {
         <Link to={routes.cart.path} className={style.navLink}>
           <CartIcon />
         </Link>
-        <Link to={routes.checkout.path} className={style.navLink}>
-          <CheckoutIcon className={style.checkout} />
-        </Link>
       </div>
     </div>
   )

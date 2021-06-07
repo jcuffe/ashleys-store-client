@@ -1,0 +1,64 @@
+@import 'src/assets/styles/common';
+
+.container {
+  display: block;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  position: relative;
+  outline: 1px solid $primary;
+
+  input,
+  textarea {
+    width: 100%;
+    outline: 0;
+    border: none;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-size: 1rem;
+    padding: 21px 9px 6px 12px;
+
+    &:focus {
+      border-color: blue;
+
+      &:not(:focus-visible) {
+        outline: none;
+      }
+    }
+  }
+
+  input:focus + .label,
+  textarea:focus + .label,
+  &.floating .label {
+    font-size: 0.75rem;
+    padding-top: 6px;
+
+    .aside {
+      margin-left: 3px;
+    }
+  }
+
+  .label {
+    width: 100%;
+    font-size: 1rem;
+    left: 0;
+    padding: 16px 12px 0;
+    pointer-events: none;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    top: 0;
+    transition: font-size 100ms, padding 100ms;
+    z-index: 1;
+
+    .aside {
+      font-style: italic;
+      font-size: 0.6rem;
+      margin-left: 6px;
+    }
+  }
+
+  &.error .label {
+    color: red;
+  }
+}

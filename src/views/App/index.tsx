@@ -2,7 +2,7 @@ import 'src/views/App/index.scss'
 
 import React from 'react'
 import Layout from 'src/components/Layout'
-import MachineProvider from 'src/components/MachineProvider'
+import { MachineProvider } from 'src/machines/parent'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 

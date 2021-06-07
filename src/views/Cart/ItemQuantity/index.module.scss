@@ -2,8 +2,6 @@
 
 .container {
   display: flex;
-  border: 1px solid $secondary;
-  border-radius: 6px;
 }
 
 .quantity {
@@ -13,15 +11,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-left: 1px solid $secondary;
-  border-right: 1px solid $secondary;
+  border-top: 1px solid $secondary;
+  border-bottom: 1px solid $secondary;
 }
 
 .increaseIcon,
 .decreaseIcon {
+  @include actionButton;
+  border-radius: 0;
   display: block;
-  padding: 12px;
+  padding: 9px 12px;
   height: 24px;
   width: 24px;
-  color: $tertiary;
+}
+
+.decreaseIcon {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.increaseIcon {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
 }

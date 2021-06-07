@@ -1,4 +1,4 @@
-import './index.scss'
+import style from './index.module.scss'
 
 import React from 'react'
 import { useField } from 'formik'
@@ -12,16 +12,16 @@ const VerticalField: React.FC<Props> = (props) => {
   const [field, meta] = useField(props)
 
   return (
-    <div className="Form__VerticalField">
-      <div className="VerticalField__Details">
-        <label htmlFor={props.name} className="VerticalField__Label">
+    <div className={style.container}>
+      <div className={style.details}>
+        <label htmlFor={props.name} className={style.label}>
           {props.label}
         </label>
         {meta.touched && meta.error && (
-          <div className="VerticalField__Error">{meta.error}</div>
+          <div className={style.error}>{meta.error}</div>
         )}
       </div>
-      <input {...field} className="VerticalField__Input" />
+      <input {...field} className={style.input} />
     </div>
   )
 }

@@ -1,0 +1,15 @@
+@import 'src/assets/styles/common';
+
+.name {
+  margin-bottom: 12px;
+}
+
+.continue {
+  @include uiText;
+  @include actionButton;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  display: block;
+  margin-left: auto;
+}

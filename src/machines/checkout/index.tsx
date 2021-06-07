@@ -1,3 +1,4 @@
-export * from 'src/machines/checkout/hook'
-export * from 'src/machines/checkout/machine'
-export * from 'src/machines/checkout/types'
+export * from './hook'
+export * from './machine'
+export * from './types'
+export * from './context'

@@ -11,7 +11,7 @@
 
 .navigation {
   max-width: $maxWidth;
-  padding: 18px 0;
+  padding: 9px 9px 6px;
   display: flex;
   justify-content: flex-end;
   margin: 0 auto;
@@ -20,7 +20,7 @@
 .navLink {
   margin-right: 32px;
   &:last-child {
-    margin-right: 24px;
+    margin-right: 9px;
     @include media-greater-than($medium) {
       margin-right: 0;
     }
@@ -29,15 +29,14 @@
 
 .storeLink {
   margin-right: auto;
-  margin-left: 24px;
+  margin-left: 9px;
   @include media-greater-than($medium) {
     margin-left: 0;
   }
 }
 
-.checkout,
 .store {
   @include pressedButton;
-  height: 36px;
+  height: 28px;
   color: $primary;
 }
